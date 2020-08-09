@@ -67,7 +67,7 @@ def generate_tree_from_commits(
     commits: List[GitCommit],
     tags: List[GitTag],
     commit_parser: str,
-    changelog_pattern: str = defaults.bump_pattern,
+    changelog_pattern: str,
     unreleased_version: Optional[str] = None,
     change_type_map: Optional[Dict[str, str]] = None,
     changelog_message_builder_hook: Optional[Callable] = None,

@@ -1,7 +1,5 @@
 import pytest
 
-from commitizen import defaults
-from commitizen.config import BaseConfig
 from commitizen.cz.conventional_commits.conventional_commits import (
     ConventionalCommitsCz,
     parse_scope,
@@ -18,13 +16,6 @@ valid_subjects = ["this is a normal text", "aword"]
 subjects_transformations = [["with dot.", "with dot"]]
 
 invalid_subjects = ["", "   ", ".", "   .", "", None]
-
-
-@pytest.fixture()
-def config():
-    _config = BaseConfig()
-    _config._settings["name"] = defaults.name
-    return _config
 
 
 def test_parse_scope_valid_values():

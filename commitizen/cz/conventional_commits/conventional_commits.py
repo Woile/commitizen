@@ -1,5 +1,6 @@
 import os
 import re
+from collections import OrderedDict
 from typing import Any, Dict, List
 
 from commitizen import defaults
@@ -28,10 +29,19 @@ def parse_subject(text):
 
 
 class ConventionalCommitsCz(BaseCommitizen):
-    bump_pattern = defaults.bump_pattern
-    bump_map = defaults.bump_map
-    commit_parser = defaults.commit_parser
-    changelog_pattern = defaults.bump_pattern
+    bump_pattern = r"^(BREAKING[\-\ ]CHANGE|feat|fix|refactor|perf)(\(.+\))?(!)?"
+    bump_map = OrderedDict(
+        (
+            (r"^.+!$", defaults.MAJOR),
+            (r"^BREAKING[\-\ ]CHANGE", defaults.MAJOR),
+            (r"^feat", defaults.MINOR),
+            (r"^fix", defaults.PATCH),
+            (r"^refactor", defaults.PATCH),
+            (r"^perf", defaults.PATCH),
+        )
+    )
+    commit_parser = r"^(?P<change_type>feat|fix|refactor|perf|BREAKING CHANGE)(?:\((?P<scope>[^()\r\n]*)\)|\()?(?P<breaking>!)?:\s(?P<message>.*)?"  # noqa
+    version_parser = defaults.version_parser
     change_type_map = {
         "feat": "Feat",
         "fix": "Fix",
