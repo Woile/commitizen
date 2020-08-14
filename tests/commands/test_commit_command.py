@@ -161,6 +161,7 @@ def test_commit_in_non_git_project(tmpdir, config):
             commands.Commit(config, {})
 
 
+@pytest.mark.usefixtures("staging_is_clean")
 def test_commit_from_pre_commit_msg_hook(config, mocker, capsys):
     testargs = ["cz", "commit", "--commit-msg-file", "some_file"]
     mocker.patch.object(sys, "argv", testargs)
