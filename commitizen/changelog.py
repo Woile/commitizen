@@ -161,11 +161,19 @@ def order_changelog_tree(tree: Iterable, change_type_order: List[str]) -> Iterab
     return sorted_tree
 
 
-def render_changelog(tree: Iterable) -> str:
-    loader = PackageLoader("commitizen", "templates")
-    env = Environment(loader=loader, trim_blocks=True)
-    jinja_template = env.get_template("keep_a_changelog_template.j2")
-    changelog: str = jinja_template.render(tree=tree)
+def render_changelog(releases: Iterable, template: str = None) -> str:
+    env = Environment(trim_blocks=True)
+    jinja_template = None
+    if template:
+        # load template from given path
+        with open(template, "r") as f:
+            template_content = f.read()
+        jinja_template = env.from_string(template_content)
+    else:
+        # load default template from package
+        env.loader = PackageLoader("commitizen", "templates")
+        jinja_template = env.get_template("keep_a_changelog_template.j2")
+    changelog: str = jinja_template.render(releases=releases)
     return changelog
 
 

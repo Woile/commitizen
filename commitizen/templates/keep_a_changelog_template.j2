@@ -1,8 +1,8 @@
-{% for entry in tree %}
+{% for release in releases %}
 
-## {{ entry.version }}{% if entry.date %} ({{ entry.date }}){% endif %}
+## {{ release.version }}{% if release.date %} ({{ release.date }}){% endif %}
 
-{% for change_key, changes in entry.changes.items() %}
+{% for change_key, changes in release.changes.items() %}
 
 {% if change_key %}
 ### {{ change_key }}

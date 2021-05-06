@@ -167,6 +167,7 @@ data = {
                         "name": "--file-name",
                         "help": "file name of changelog (default: 'CHANGELOG.md')",
                     },
+                    {"name": "--template", "help": "custom template to be used",},
                     {
                         "name": "--unreleased-version",
                         "help": (

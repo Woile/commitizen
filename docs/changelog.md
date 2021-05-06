@@ -7,6 +7,7 @@ This command will generate a changelog following the committing rules establishe
 ```bash
 $ cz changelog --help
 usage: cz changelog [-h] [--dry-run] [--file-name FILE_NAME]
+                    [--template TEMPLATE]
                     [--unreleased-version UNRELEASED_VERSION] [--incremental]
                     [--start-rev START_REV]
 
@@ -15,6 +16,7 @@ optional arguments:
   --dry-run             show changelog to stdout
   --file-name FILE_NAME
                         file name of changelog (default: 'CHANGELOG.md')
+  --template TEMPLATE   custom template to be used
   --unreleased-version UNRELEASED_VERSION
                         set the value for the new version (use the tag value),
                         instead of using unreleased
@@ -110,6 +112,16 @@ Specify the name of the output file, remember that changelog only works with mar
 
 ```bash
 cz changelog --file-name="CHANGES.md"
+```
+
+### `template`
+
+This value can be set in the `toml` file with the key `changelog_template` under `tools.commitizen`
+
+Specify a custom Jinja template to be used for the changelogs. Use the provided [default template](../commitizen/templates/keep_a_changelog_template.j2) as a reference for creating your own template.
+
+```bash
+cz changelog --template="CHANGELOG.md.j2"
 ```
 
 ### `incremental`

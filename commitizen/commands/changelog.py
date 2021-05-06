@@ -35,6 +35,9 @@ class Changelog:
         self.file_name = args.get("file_name") or self.config.settings.get(
             "changelog_file"
         )
+        self.template = args.get("template") or self.config.settings.get(
+            "changelog_template"
+        )
         self.incremental = args["incremental"] or self.config.settings.get(
             "changelog_incremental"
         )
@@ -114,7 +117,7 @@ class Changelog:
         )
         if self.change_type_order:
             tree = changelog.order_changelog_tree(tree, self.change_type_order)
-        changelog_out = changelog.render_changelog(tree)
+        changelog_out = changelog.render_changelog(tree, self.template)
         changelog_out = changelog_out.lstrip("\n")
 
         if self.dry_run:

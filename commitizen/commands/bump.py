@@ -46,6 +46,9 @@ class Bump:
         self.changelog = arguments["changelog"] or self.config.settings.get(
             "update_changelog_on_bump"
         )
+        self.changelog_incremental = self.config.settings.get(
+            "changelog_incremental", False
+        )
         self.changelog_to_stdout = arguments["changelog_to_stdout"]
         self.no_verify = arguments["no_verify"]
         self.check_consistency = arguments["check_consistency"]
@@ -189,7 +192,7 @@ class Bump:
                     self.config,
                     {
                         "unreleased_version": new_tag_version,
-                        "incremental": True,
+                        "incremental": self.changelog_incremental,
                         "dry_run": True,
                     },
                 )
@@ -201,7 +204,7 @@ class Bump:
                 self.config,
                 {
                     "unreleased_version": new_tag_version,
-                    "incremental": True,
+                    "incremental": self.changelog_incremental,
                     "dry_run": dry_run,
                 },
             )

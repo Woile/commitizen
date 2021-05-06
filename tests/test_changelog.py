@@ -848,6 +848,14 @@ def test_render_changelog(gitcommits, tags, changelog_content):
     )
     result = changelog.render_changelog(tree)
     assert result == changelog_content
+    # test with 'custom' template
+    tree = changelog.generate_tree_from_commits(
+        gitcommits, tags, parser, changelog_pattern
+    )
+    result = changelog.render_changelog(
+        tree, "commitizen/templates/keep_a_changelog_template.j2"
+    )
+    assert result == changelog_content
 
 
 def test_render_changelog_unreleased(gitcommits):
