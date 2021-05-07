@@ -86,7 +86,7 @@ cz c
 ```
 
 ### Integrating with Pre-commit
-Commitizen can lint your commit message for you with `cz check`.
+Commitizen can lint your commit message for you with `cz check` and `cz commit`.
 You can integrate this in your [pre-commit](https://pre-commit.com/) config with:
 
 ```yaml
@@ -97,6 +97,8 @@ repos:
     hooks:
       - id: commitizen
         stages: [commit-msg]
+      - id: commitizen-prepare-commit-msg
+        stages: [prepare-commit-msg]
 ```
 
 After the configuration is added, you'll need to run
